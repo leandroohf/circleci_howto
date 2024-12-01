@@ -17,6 +17,8 @@ workflows:
   hello_world:
     jobs:
       - hello/hello-build
-      - my_custom_msg
+      - my_custom_msg:
+        name: Download common tools
+        filters: *on-push-main
         requires:
           - hello/hello-build
