@@ -6,10 +6,10 @@ jobs:
   my_custom_msg:
     executor: docker-python-executor
     steps:
-      - run 
+      - run:
         name: My custom message
         command: echo "My custom message"
-      - run
+      - run:
         name: Show Python version
         command: python3 --version
 
