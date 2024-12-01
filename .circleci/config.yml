@@ -17,7 +17,3 @@ workflows:
   hello_world:
     jobs:
       - hello/hello-build
-      - my_custom_msg:
-        name: Download common tools
-        requires:
-          - hello/hello-build
