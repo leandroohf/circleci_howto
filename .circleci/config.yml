@@ -2,16 +2,16 @@ version: 2.1
 orbs:
   hello: circleci/hello-build@0.0.5
 
-jobs:
-  my_custom_msg:
-    executor: docker-python-executor
-    steps:
-      - run:
-        name: My custom message
-        command: echo "My custom message"
-      - run:
-        name: Show Python version
-        command: python3 --version
+# jobs:
+#   my_custom_msg:
+#     executor: docker-python-executor
+#     steps:
+#       - run:
+#         name: My custom message
+#         command: echo "My custom message"
+#       - run:
+#         name: Show Python version
+#         command: python3 --version
 
 workflows:
   hello_world:
