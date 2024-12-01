@@ -15,7 +15,7 @@ jobs:
           name: Show repo folder
           command: |
             pwd
-            ls
+            ls -a
       - run:
           name: Check Python Version # Step to check Python version
           command: python --version  # Command to execute
