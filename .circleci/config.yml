@@ -19,6 +19,11 @@ jobs:
       - run:
           name: Check Python Version # Step to check Python version
           command: python --version  # Command to execute
+      - run:
+          name: Print Environment Variable
+          command: |
+            echo $EMAIL_TO
+            echo $GITUSERNAME
 
 workflows:
   cicleci-howto:       # Workflow that runs the job
