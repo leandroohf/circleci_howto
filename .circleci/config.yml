@@ -33,37 +33,36 @@ jobs:
           command: |
             echo "Env email to form project settings: $EMAIL_TO"
             echo "Email passed as job parameter: << parameters.email_to >>"
-    build:
-      docker:         # Execution environment
-        - image: circleci/python:3.9  # Use a Python Docker image
-      steps:
-        - run: 
-          name: create folder and file
-          command: |
-            mkdir -p /tmp/shared
-            echo "this data is shared between jobs" >  /tmp/shared/data.csv
-        -run:
-          name: building step
-          command: echo "Building ..."
-        - persist_to_workspace:
-          root: /tmp/shared
-          paths:
-            - data.csv
-
-    deploy:      
-      docker:         # Execution environment
-        - image: circleci/python:3.9  # Use a Python Docker image
-      steps:
-        - attach_workspace:
-          at: .
-        - run: 
-          name: Access shared data
-          command: |
-            echo data.csv
-        - run:
-          name: deploying
-          command: echo "deploying"
-
+  build:
+    docker:         # Execution environment
+      - image: circleci/python:3.9  # Use a Python Docker image
+    steps:
+      - run: 
+        name: create folder and file
+        command: |
+          mkdir -p /tmp/shared
+          echo "this data is shared between jobs" >  /tmp/shared/data.csv
+      - run:
+        name: building step
+        command: echo "Building ..."
+      - persist_to_workspace:
+        root: /tmp/shared
+        paths:
+          - data.csv
+  
+  deploy:      
+    docker:         # Execution environment
+      - image: circleci/python:3.9  # Use a Python Docker image
+    steps:
+      - attach_workspace:
+        at: .
+      - run: 
+        name: Access shared data
+        command: |
+          echo data.csv
+      - run:
+        name: deploying
+        command: echo "deploying"
 
 workflows:
   cicleci-howto:       # Workflow that runs the job
