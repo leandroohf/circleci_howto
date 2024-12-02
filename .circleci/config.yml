@@ -2,6 +2,11 @@ version: 2.1
 orbs:
   hello: circleci/hello-build@0.0.5
 
+parameters:  # Define global pipeline parameters
+  email_to: 
+    type: string
+    default: "default@example.com"
+
 jobs:
   show-repo-and-python-version:  # Job name
     docker:         # Execution environment
@@ -23,7 +28,8 @@ jobs:
           name: Print Environment Variable
           command: |
             echo $EMAIL_TO
-            echo $GITUSERNAME
+            echo "Email passed as parameter: << parameters.email_to >>"
+
 
 workflows:
   cicleci-howto:       # Workflow that runs the job
