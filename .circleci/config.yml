@@ -9,6 +9,10 @@ parameters:  # Define global pipeline parameters
 
 jobs:
   show-repo-and-python-version:  # Job name
+    parameters:  # Pass the pipeline parameter to the job
+      email_to: 
+        type: string
+        default: "default@batman.com"
     docker:         # Execution environment
       - image: circleci/python:3.9  # Use a Python Docker image
     steps:          # Define the steps in the job
@@ -27,8 +31,8 @@ jobs:
       - run:
           name: Print Environment Variable
           command: |
-            echo $EMAIL_TO
-            echo "Email passed as parameter: << parameters.email_to >>"
+            echo "Env email to form project settings: $EMAIL_TO"
+            echo "Email passed as job parameter: << parameters.email_to >>"
 
 
 workflows:
@@ -37,5 +41,16 @@ workflows:
       - hello/hello-build
       - show-repo-and-python-version:
           name: Show repo and python version
+          email_to: << pipeline.parameters.email_to >>  # Pass pipeline parameter to the job. If ommit => defailt = 
+          requires:
+            - hello/hello-build
+      - show-repo-and-python-version:
+          name: Show repo and python version 2
+          email_to:
+          requires:
+            - hello/hello-build
+      - show-repo-and-python-version:
+          name: Show repo and python version 2
+          email_to: "default@agoravai.com.br"
           requires:
             - hello/hello-build
