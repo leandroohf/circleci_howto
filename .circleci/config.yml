@@ -38,55 +38,55 @@ jobs:
       - image: circleci/python:3.9  # Use a Python Docker image
     steps:
       - run: 
-        name: create folder and file
-        command: |
+          name: create folder and file
+          command: |
           mkdir -p /tmp/shared
           echo "this data is shared between jobs" >  /tmp/shared/data.csv
       - run:
-        name: building step
-        command: echo "Building ..."
+          name: building step
+          command: echo "Building ..."
       - persist_to_workspace:
-        root: /tmp/shared
-        paths:
-          - data.csv
+          root: /tmp/shared
+          paths:
+            - data.csv
   deploy:      
     docker:         # Execution environment
       - image: circleci/python:3.9  # Use a Python Docker image
     steps:
       - attach_workspace:
-        at: .
+          at: .
       - run: 
-        name: Access shared data
-        command: |
-          echo data.csv
+          name: Access shared data
+          command: |
+            echo data.csv
       - run:
-        name: deploying
-        command: echo "deploying"
+          name: deploying
+          command: echo "deploying"
 
 workflows:
   cicleci-howto:       # Workflow that runs the job
     jobs:
       - hello/hello-build
       - show-repo-and-python-version:
-          name: Show repo and python version
+          name: Show repo and python version (parameter)
           email_to: << pipeline.parameters.email_to >>  # Pass pipeline parameter to the job. If ommit => defailt = 
           requires:
             - hello/hello-build
       - show-repo-and-python-version:
-          name: Show repo and python version 2
+          name: Show repo and python version 2 (default job)
           email_to:
           requires:
             - hello/hello-build
       - show-repo-and-python-version:
-          name: Show repo and python version 2
+          name: Show repo and python version 3 (passing value)
           email_to: "default@agoravai.com.br"
           requires:
             - hello/hello-build
       - build:
-        name: Build project
-        requires:
-          - show-repo-and-python-version
+          name: Build project
+          requires:
+            - show-repo-and-python-version
       - deploy:
-        name: Deploy project
-        requires:
-          - build
+          name: Deploy project
+          requires:
+            - build
