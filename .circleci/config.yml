@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Print Environment Variable
           command: |
-            echo "Env email to form project settings: $EMAIL_TO"
+            echo "Env email to from project settings: $EMAIL_TO"
             echo "Email passed as job parameter: << parameters.email_to >>"
   build:
     docker:         # Execution environment
@@ -58,7 +58,7 @@ jobs:
       - run: 
           name: Access shared data
           command: |
-            echo data.csv
+            cat data.csv
       - run:
           name: deploying
           command: echo "deploying"
@@ -68,7 +68,7 @@ workflows:
     jobs:
       - hello/hello-build
       - show-repo-and-python-version:
-          name: Show repo and python version (parameter)
+          name: Show repo and python version 1 (parameter)
           email_to: << pipeline.parameters.email_to >>  # Pass pipeline parameter to the job. If ommit => defailt = 
           requires:
             - hello/hello-build
@@ -85,7 +85,7 @@ workflows:
       - build:
           name: Build project
           requires: # NOTE: requires the name of the job
-            - Show repo and python version (parameter)
+            - Show repo and python version 1 (parameter)
             - Show repo and python version 2 (default job)
             - Show repo and python version 3 (passing value)
       - deploy:
