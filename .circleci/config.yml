@@ -40,8 +40,8 @@ jobs:
       - run: 
           name: create folder and file
           command: |
-          mkdir -p /tmp/shared
-          echo "this data is shared between jobs" >  /tmp/shared/data.csv
+            mkdir -p /tmp/shared
+            echo "this data is shared between jobs" >  /tmp/shared/data.csv
       - run:
           name: building step
           command: echo "Building ..."
