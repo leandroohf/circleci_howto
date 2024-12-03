@@ -84,8 +84,10 @@ workflows:
             - hello/hello-build
       - build:
           name: Build project
-          requires:
-            - show-repo-and-python-version
+          requires: # NOTE: requires the name of the job
+            - Show repo and python version (parameter)
+            - Show repo and python version 2 (default job)
+            - Show repo and python version 3 (passing value)
       - deploy:
           name: Deploy project
           requires:
