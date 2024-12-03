@@ -91,4 +91,4 @@ workflows:
       - deploy:
           name: Deploy project
           requires:
-            - build
+            - Build project
