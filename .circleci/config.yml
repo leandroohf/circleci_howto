@@ -37,6 +37,9 @@ jobs:
     docker:         # Execution environment
       - image: circleci/python:3.9  # Use a Python Docker image
     steps:
+      - checkout
+      - setup_remote_docker:
+        docker_layer_caching: true
       - run: 
           name: create folder and file
           command: |
@@ -44,7 +47,14 @@ jobs:
             echo "this data is shared between jobs" >  /tmp/shared/data.csv
       - run:
           name: building step
-          command: echo "Building ..."
+          command: |
+            echo "Building ..."
+            cd application
+            docker build . -t train-image
+      - run:
+          name: Test Docker Image
+          command: |
+            docker run train-image
       - persist_to_workspace:
           root: /tmp/shared
           paths:
