@@ -66,7 +66,6 @@ jobs:
       env: # A parameter to control the environment
         type: string
         default: "Dev" # Default to dev
-
     steps:
       - attach_workspace:
           at: .
