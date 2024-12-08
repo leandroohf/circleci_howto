@@ -145,4 +145,4 @@ workflows:
       - notify:
           context: slack-context
           requires:
-            - hello/hello-build
+            - Approve Deploy to QA
