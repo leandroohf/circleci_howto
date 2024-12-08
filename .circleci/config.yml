@@ -65,7 +65,7 @@ jobs:
     parameters:
       env: # A parameter to control the environment
         type: string
-        default: "Dev" # Default to dev
+        default: "dev" # Default to dev
     steps:
       - attach_workspace:
           at: .
@@ -106,11 +106,11 @@ workflows:
             - Show repo and python version 3 (passing value)
       - deploy:
           name: Deploy project on Dev
-          env: "Dev"
+          env: "dev"
           requires:
             - Build project
       - deploy:
           name: Deploy project on Qa
-          env: "Qa"
+          env: "qa"
           requires:
             - Deploy project on Dev
