@@ -84,7 +84,7 @@ jobs:
       docker:
         - image: cimg/base:current
       steps:
-        - slack/notify:
+        - slack/notify: # Notify channel 
             custom: |
               {
                 "blocks": [
