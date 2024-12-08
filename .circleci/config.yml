@@ -108,8 +108,13 @@ workflows:
           context: dev-context
           requires:
             - Build project
+      - approval:
+          type: approval
+          name: Approve Deploy to QA
+          requires:
+            - Deploy project on Dev
       - deploy:
           name: Deploy project on Qa
           context: qa-context
           requires:
-            - Deploy project on Dev
+            - Approve Deploy to QA
