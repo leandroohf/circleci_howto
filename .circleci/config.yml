@@ -76,8 +76,7 @@ jobs:
       - run:
           name: deploying
           command: echo "deploying"
-    context:
-      - << pipeline.parameters.env >>-context
+
 
 workflows:
   cicleci-howto:       # Workflow that runs the job
@@ -106,11 +105,11 @@ workflows:
             - Show repo and python version 3 (passing value)
       - deploy:
           name: Deploy project on Dev
-          env: "dev"
+          context: "Dev"
           requires:
             - Build project
       - deploy:
           name: Deploy project on Qa
-          env: "qa"
+          context: "Qa"
           requires:
             - Deploy project on Dev
