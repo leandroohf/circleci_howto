@@ -143,4 +143,6 @@ workflows:
           requires:
             - Approve Deploy to QA
       - notify:
-          context: slack-secrets
+          context: slack-context
+          requires:
+            - hello/hello-build
