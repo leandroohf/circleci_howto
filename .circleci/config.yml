@@ -76,9 +76,9 @@ jobs:
       - run:
           name: deploying
           command: echo "deploying"
-      - run:
+      - run:       # circleci do not print var contents on context.
           name: greeting
-          command: echo $GREETING
+          command: echo $GREETING 
 
 
 workflows:
