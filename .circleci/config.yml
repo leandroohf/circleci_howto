@@ -76,6 +76,9 @@ jobs:
       - run:
           name: deploying
           command: echo "deploying"
+      - run:
+          name: greeting
+          command: echo $GREETING
 
 
 workflows:
