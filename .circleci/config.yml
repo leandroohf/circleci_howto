@@ -105,11 +105,11 @@ workflows:
             - Show repo and python version 3 (passing value)
       - deploy:
           name: Deploy project on Dev
-          context: "Dev"
+          context: dev-context
           requires:
             - Build project
       - deploy:
           name: Deploy project on Qa
-          context: "Qa"
+          context: qa-context
           requires:
             - Deploy project on Dev
