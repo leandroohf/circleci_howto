@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   hello: circleci/hello-build@0.0.5
+  slack: circleci/slack@4.12.5
 
 parameters:  # Define global pipeline parameters
   email_to: 
@@ -79,7 +80,27 @@ jobs:
       - run:       # circleci do not print var contents on context.
           name: greeting
           command: echo $GREETING 
-
+  notify:
+      docker:
+        - image: cimg/base:current
+      steps:
+        - slack/notify:
+            custom: |
+              {
+                "blocks": [
+                  {
+                    "type": "section",
+                    "fields": [
+                      {
+                        "type": "plain_text",
+                        "text": "*This is a text notification*: Pipeline finished",
+                        "emoji": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            event: always
 
 workflows:
   cicleci-howto:       # Workflow that runs the job
@@ -121,3 +142,5 @@ workflows:
           context: qa-context
           requires:
             - Approve Deploy to QA
+      - notify:
+          context: slack-secrets
