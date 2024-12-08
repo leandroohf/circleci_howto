@@ -143,6 +143,7 @@ workflows:
           requires:
             - Approve Deploy to QA
       - notify:
+          name: Notify slack
           context: slack-context
           requires:
             - Deploy project on Qa
