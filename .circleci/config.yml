@@ -76,8 +76,8 @@ jobs:
       - run:
           name: deploying
           command: echo "deploying"
-      context:
-          - << pipeline.parameters.env >>-context
+    context:
+      - << pipeline.parameters.env >>-context
 
 workflows:
   cicleci-howto:       # Workflow that runs the job
