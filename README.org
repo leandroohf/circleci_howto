@@ -19,6 +19,8 @@
   6. context and secrets and notify slack channel on errors
   7. split the pipeline on dev and prod enviroment
 
+  For full pipeline example see file .circleci/config.yaml
+
 * CircleCI main terms
 ** Jobs:
 
