@@ -117,7 +117,7 @@
    to send messages to slack channels instead of you build all the commands to
    accomplish the same task. Below is an list of popular orbs:
 
-    1. hello: A simple orb that echoes a message 
+    1. hello: A simple orb that echoes a message
     2. slack and sendgrid: Send messages to slack channels and emails
     3. aws-eks and aws-ecr: Deploy to AWS EKS and AWS ECR
     4. circleci-gcp-auth: Authenticate with Google Cloud Platform
