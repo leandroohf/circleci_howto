@@ -16,7 +16,7 @@
   3. work with orbs (So you dont have start from zero)
   4. work with docker images and use docker layer caching (DLC)
   5. how to store and share model artifacts between jobs
-  6. context and secrets
+  6. context and secrets and notify slack channel on errors
   7. split the pipeline on dev and prod enviroment
 
 * CircleCI main terms
@@ -145,7 +145,6 @@
 
    * [[./images/circleci_pipeline.png][circleci pipeline]]
 
-
 * How to work with docker and docker layer caching
 
   The job example below summarize the main steps to work with docker images and docker layer caching:
@@ -253,3 +252,60 @@
               mentions: "@channel"  # <= Mention a user or channel
               message: "The build failed"
     #+END_SRC
+
+* Work with dev and qa enviroment
+
+   The best practices ML pipelines should have dev, qa and prod enviroments.
+   These enviroments has different paswords and permissions and protect and
+   organize your ML project.
+
+   As simplification the circleci below defines only dev and qa. You need to
+   manuall approve to deploy on qa after dev is deployed. Dev and QA have
+   different context on circleci project with different pernissions and secrets.
+   Best practices, ML models is deployed after all tests: unit tests integration
+   tests and validation test (Is the model performance right?) passes.
+
+   #+BEGIN_SRC yaml
+     version: 2.1
+
+     jobs:
+       deploy:
+         docker:
+           - image: circleci/python:3.9  # Use a Python Docker image
+         parameters:
+           env: # A parameter to control the environment
+             type: string
+             default: "dev" # Default to dev
+         steps:
+           - run:
+               name: deploying
+               command: echo "deploying"
+           - run:       # <== circleci do not print var contents on context.
+               name: greeting
+               command: echo $GREETING
+
+
+     workflows:
+       version: 2
+       build-and-deploy:
+         jobs:
+           - build:
+               name: Build project
+               run: echo "building"
+           - deploy:
+               name: Deploy project on Dev
+               context: dev-context
+               requires:
+                 - Build project
+           - approval:
+               type: approval
+               name: Approve Deploy to QA
+               requires:
+                 - Deploy project on Dev
+           - deploy:
+               name: Deploy project on Qa
+               context: qa-context
+               requires:
+                 - Approve Deploy to QA
+    #+END_SRC
+
